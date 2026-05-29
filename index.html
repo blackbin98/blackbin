@@ -3,455 +3,332 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PS1 NEWS LETTER | 부산·부경대·사회복지 뉴스</title>
+  <title>BLACKBIN98 Busan Newsletter</title>
   <style>
     :root{
-      --coral:#ff5b66;
-      --coral-soft:#ffa69c;
-      --ink:#333333;
-      --muted:#8b8b8b;
-      --line:#ff7a7f;
-      --bg:#fffafa;
-      --card:#ffffff;
-      --shadow: 0 18px 55px rgba(255,91,102,.16);
+      --coral:#ff626b;
+      --soft-coral:#ffa69e;
+      --ink:#111111;
+      --gray:#777777;
+      --line:#ff626b;
+      --bg:#ffffff;
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *{box-sizing:border-box;}
+
     body{
       margin:0;
       background:var(--bg);
       color:var(--ink);
-      font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      letter-spacing:-.02em;
+      font-family:"Arial", "Pretendard", "Noto Sans KR", sans-serif;
     }
 
-    a{color:inherit;text-decoration:none}
-    .wrap{width:min(1180px,92vw);margin:0 auto}
+    a{color:inherit; text-decoration:none;}
 
-    header{
-      position:sticky;
-      top:0;
-      z-index:10;
-      background:rgba(255,250,250,.92);
-      backdrop-filter: blur(14px);
-      border-bottom:2px solid var(--line);
+    .page{
+      width:min(1180px, 92vw);
+      margin:0 auto;
+      padding:22px 0 56px;
     }
 
     .masthead{
-      padding:18px 0 9px;
-      border-bottom:1px solid rgba(255,91,102,.45);
+      border-bottom:3px solid var(--line);
+      padding-bottom:8px;
     }
 
-    .title{
-      font-family: Georgia, "Times New Roman", serif;
-      font-size:clamp(46px,8vw,102px);
-      line-height:.86;
+    .newsletter-title{
+      margin:0;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:clamp(3.4rem, 9vw, 8.8rem);
+      line-height:.82;
+      letter-spacing:.02em;
       color:var(--coral);
       font-weight:900;
-      letter-spacing:.035em;
+    }
+
+    .top-info{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:16px;
+      margin-top:6px;
+      padding-top:5px;
+      border-top:1px solid var(--line);
+      color:#999;
+      font-size:.76rem;
       white-space:nowrap;
     }
 
-    .meta{
-      display:grid;
-      grid-template-columns:1.2fr .7fr 1fr;
-      gap:12px;
-      padding:5px 0 8px;
-      color:#9c9c9c;
-      font-size:12px;
-      border-bottom:2px solid var(--line);
-    }
-
-    nav{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      padding:12px 0;
-      font-size:14px;
-      color:var(--coral);
-      font-weight:800;
-    }
-
-    .navlinks{display:flex;gap:10px;flex-wrap:wrap}
-    .navlinks a{
-      border:1px solid rgba(255,91,102,.35);
-      padding:8px 12px;
-      border-radius:999px;
-      background:#fff;
-    }
+    .top-info span:nth-child(2){text-align:center;}
+    .top-info span:nth-child(3){text-align:right;}
 
     .hero{
-      min-height:72vh;
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:40px;
-      align-items:center;
-      padding:80px 0 70px;
       position:relative;
+      min-height:640px;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      align-items:center;
+      gap:28px;
+      padding:52px 0 44px;
       overflow:hidden;
     }
 
-    .hero:before{
-      content:"PS1";
+    .hero-mark{
       position:absolute;
-      right:-2vw;
-      top:14vh;
-      font-family:Impact, Haettenschweiler, "Arial Black", sans-serif;
-      font-size:clamp(160px,31vw,460px);
-      line-height:.75;
-      color:rgba(255,91,102,.12);
-      z-index:0;
-      letter-spacing:-.12em;
-    }
-
-    .hero > *{position:relative;z-index:1}
-    .tag{
-      color:var(--coral);
+      left:50%;
+      top:53%;
+      transform:translate(-50%, -50%);
+      font-size:clamp(16rem, 35vw, 34rem);
       font-weight:900;
-      font-size:15px;
-      margin-bottom:14px;
+      letter-spacing:-.12em;
+      color:rgba(255, 98, 107, .15);
+      z-index:0;
+      pointer-events:none;
+      font-family:Impact, Arial Black, sans-serif;
     }
 
-    h1{
-      margin:0;
-      font-size:clamp(44px,7vw,92px);
-      line-height:.92;
+    .hero-copy,
+    .weather-panel{position:relative; z-index:1;}
+
+    .kicker{
       color:var(--coral);
-      letter-spacing:-.055em;
-    }
-
-    .hero p{
-      margin:24px 0 0;
-      font-size:clamp(17px,2vw,22px);
-      line-height:1.65;
-      color:#555;
-      max-width:590px;
-    }
-
-    .hero-card{
-      background:#fff;
-      border:2px solid rgba(255,91,102,.35);
-      box-shadow:var(--shadow);
-      border-radius:28px;
-      padding:28px;
-      min-height:390px;
-    }
-
-    .vol{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      border-bottom:2px solid var(--coral);
-      padding-bottom:18px;
+      font-weight:800;
+      letter-spacing:.08em;
+      font-size:.9rem;
       margin-bottom:20px;
     }
 
-    .vol b{font-size:52px;color:var(--coral);line-height:.9}
-    .vol span{font-size:13px;color:var(--muted);font-weight:700;text-align:right}
-
-    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .mini{
-      border:1px solid rgba(255,91,102,.18);
-      background:linear-gradient(180deg,#fff,#fff5f3);
-      border-radius:18px;
-      padding:18px;
-      min-height:115px;
-    }
-    .mini small{display:block;color:var(--muted);font-weight:800;margin-bottom:8px}
-    .mini strong{display:block;color:var(--coral);font-size:22px;line-height:1.2}
-
-    section{padding:64px 0}
-    .section-title{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:18px;
-      margin-bottom:22px;
-      border-bottom:2px solid var(--coral);
-      padding-bottom:12px;
-    }
-    .section-title h2{
+    .main-title{
       margin:0;
-      font-family:Georgia,"Times New Roman",serif;
+      font-family:Georgia, 'Times New Roman', serif;
+      font-size:clamp(3rem, 6vw, 6.7rem);
+      line-height:1.02;
+      font-weight:900;
+      letter-spacing:-.05em;
+    }
+
+    .main-title .pink{color:var(--coral);}
+    .main-title .black{color:var(--ink);}
+
+    .intro{
+      width:min(560px, 100%);
+      margin-top:24px;
+      color:#555;
+      font-size:1.05rem;
+      line-height:1.8;
+      word-break:keep-all;
+    }
+
+    .weather-panel{
+      justify-self:end;
+      width:min(360px, 100%);
+      border:3px solid var(--coral);
+      padding:28px;
+      background:rgba(255,255,255,.86);
+      box-shadow:18px 18px 0 rgba(255,98,107,.13);
+    }
+
+    .weather-label{
       color:var(--coral);
-      font-size:clamp(34px,5vw,64px);
-      line-height:.95;
-      letter-spacing:.04em;
+      font-weight:900;
+      font-size:1.05rem;
+      letter-spacing:.08em;
+      margin-bottom:18px;
     }
-    .section-title p{margin:0;color:var(--muted);font-size:13px;text-align:right}
 
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .weather-temp{
+      font-size:clamp(4.5rem, 10vw, 7.8rem);
+      line-height:.82;
+      font-weight:900;
+      color:var(--coral);
+      letter-spacing:-.08em;
+    }
+
+    .weather-city{
+      margin-top:16px;
+      font-size:1.25rem;
+      font-weight:900;
+      letter-spacing:.24em;
+    }
+
+    .weather-desc{
+      margin-top:8px;
+      color:#666;
+      font-size:1rem;
+      line-height:1.6;
+    }
+
+    .weather-small{
+      margin-top:18px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,98,107,.35);
+      color:#777;
+      font-size:.86rem;
+      line-height:1.6;
+    }
+
+    .section-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+      margin-top:28px;
+    }
+
     .card{
-      background:var(--card);
-      border:1px solid rgba(255,91,102,.22);
-      border-radius:24px;
-      padding:22px;
-      box-shadow:0 12px 28px rgba(255,91,102,.08);
+      border-top:4px solid var(--coral);
+      padding:20px 18px 24px;
+      min-height:220px;
+      background:#fff;
+      box-shadow:0 12px 35px rgba(0,0,0,.06);
     }
-    .card h3{margin:0 0 10px;color:var(--coral);font-size:23px}
-    .card p{margin:0;color:#666;line-height:1.7;font-size:15px}
-    .card .source{display:inline-block;margin-top:14px;color:var(--coral);font-size:13px;font-weight:900}
 
-    #weatherBox{
+    .card-number{
+      color:var(--coral);
+      font-family:Georgia, 'Times New Roman', serif;
+      font-weight:900;
+      font-size:2.8rem;
+      line-height:1;
+    }
+
+    .card h2{
+      margin:12px 0 12px;
+      font-size:1.45rem;
+      letter-spacing:-.04em;
+    }
+
+    .card p{
+      margin:0;
+      color:#555;
+      line-height:1.75;
+      font-size:.98rem;
+      word-break:keep-all;
+    }
+
+    .stats-band{
+      margin-top:22px;
+      border:3px solid var(--coral);
       display:grid;
       grid-template-columns:1fr 1fr 1fr;
-      gap:14px;
-    }
-    .weather-main{grid-column:span 2}
-    .temp{font-size:72px;color:var(--coral);font-weight:950;letter-spacing:-.08em;line-height:1}
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:7px 11px;
-      border-radius:999px;
-      background:#fff0ee;
-      color:var(--coral);
-      font-weight:900;
-      font-size:13px;
-      margin-bottom:12px;
+      gap:0;
     }
 
-    .news-list{display:grid;gap:14px}
-    .news-item{
-      display:grid;
-      grid-template-columns:92px 1fr;
-      gap:16px;
-      align-items:center;
-      background:#fff;
-      border:1px solid rgba(255,91,102,.2);
-      border-radius:20px;
-      padding:16px;
+    .stat{
+      padding:22px 18px;
+      border-right:1px solid rgba(255,98,107,.35);
     }
-    .news-item time{
-      color:var(--coral);
-      font-weight:950;
-      font-size:13px;
-      text-align:center;
-      background:#fff2f1;
-      border-radius:16px;
-      padding:12px 8px;
-    }
-    .news-item h3{margin:0 0 6px;font-size:18px;color:#333}
-    .news-item p{margin:0;color:#777;font-size:14px;line-height:1.55}
 
-    .stat-big{font-size:42px;font-weight:950;color:var(--coral);line-height:1;margin:10px 0}
-    .footer{
-      margin-top:50px;
-      padding:34px 0;
+    .stat:last-child{border-right:0;}
+
+    .stat strong{
+      display:block;
+      color:var(--coral);
+      font-size:2rem;
+      line-height:1;
+      margin-bottom:10px;
+    }
+
+    .stat span{
+      color:#555;
+      line-height:1.55;
+      font-size:.94rem;
+    }
+
+    footer{
+      margin-top:42px;
+      padding-top:12px;
       border-top:2px solid var(--coral);
-      color:#999;
-      font-size:13px;
+      color:#777;
+      font-size:.82rem;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
     }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:42px;
-      padding:0 15px;
-      background:var(--coral);
-      color:#fff;
-      border-radius:999px;
-      font-weight:900;
-      border:0;
-      cursor:pointer;
-      box-shadow:0 10px 24px rgba(255,91,102,.22);
-    }
-
-    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 
     @media(max-width:860px){
-      .meta{grid-template-columns:1fr;font-size:11px}
-      .hero,.split{grid-template-columns:1fr}
-      .grid,#weatherBox{grid-template-columns:1fr}
-      .weather-main{grid-column:span 1}
-      .title{font-size:44px;white-space:normal}
-      nav{align-items:flex-start;flex-direction:column}
-      .news-item{grid-template-columns:1fr}
-      .news-item time{text-align:left;width:max-content}
+      .top-info{grid-template-columns:1fr; white-space:normal;}
+      .top-info span:nth-child(2), .top-info span:nth-child(3){text-align:left;}
+      .hero{grid-template-columns:1fr; min-height:auto; padding-top:38px;}
+      .weather-panel{justify-self:start;}
+      .section-grid{grid-template-columns:1fr;}
+      .stats-band{grid-template-columns:1fr;}
+      .stat{border-right:0; border-bottom:1px solid rgba(255,98,107,.35);}
+      .stat:last-child{border-bottom:0;}
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap masthead">
-      <div class="title">PS1 NEWS LETTER</div>
-      <div class="meta">
-        <span>주소. 부산광역시 남구 용소로 45, 인문사회경영관(C25)</span>
+  <main class="page">
+    <header class="masthead">
+      <h1 class="newsletter-title">BUSAN NEWS LETTER</h1>
+      <div class="top-info">
+        <span>주소. 부산광역시 남구 용소로 45</span>
         <span>TEL. 051.629.5450</span>
-        <span>HOMEPAGE. ICMS.PKNU.AC.KR/PS1</span>
+        <span>HOMEPAGE. https://blackbin98.github.io/blackbin/</span>
       </div>
-      <nav>
-        <strong>BLACKBIN98 × GITHUB PAGES</strong>
-        <div class="navlinks">
-          <a href="#weather">날씨</a>
-          <a href="#busan">부산 이슈</a>
-          <a href="#pknu">부경대 뉴스</a>
-          <a href="#welfare">사회복지 통계</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+    </header>
 
-  <main class="wrap">
     <section class="hero">
-      <div>
-        <div class="tag">BUSAN · PKNU · SOCIAL WELFARE</div>
-        <h1>오늘의 부산을<br>한 장의 뉴스레터로.</h1>
-        <p>날씨, 지역 이슈, 부경대 소식, 사회복지 통계를 한곳에 모은 개인 홈페이지입니다. 산뜻한 코랄 색감과 신문형 레이아웃으로 PS1 뉴스레터 감성을 담았습니다.</p>
+      <div class="hero-mark">B1</div>
+
+      <div class="hero-copy">
+        <div class="kicker">BLACKBIN98 BUSAN ARCHIVE</div>
+        <h2 class="main-title">
+          <span class="pink">오늘의 부산을</span><br />
+          <span class="black">한 장의 뉴스레터로</span>
+        </h2>
+        <p class="intro">
+          부산의 날씨, 지역 이슈, 부경대학교 관련 소식, 사회복지 통계를 한 화면에 모아 보는 개인 뉴스레터형 홈페이지입니다.
+        </p>
       </div>
-      <aside class="hero-card">
-        <div class="vol">
-          <b>VOL. 05</b>
-          <span>PKNU<br>NEWS BOARD</span>
-        </div>
-        <div class="mini-grid">
-          <div class="mini"><small>01 WEATHER</small><strong>부산 실시간 날씨</strong></div>
-          <div class="mini"><small>02 ISSUE</small><strong>지역 현안 큐레이션</strong></div>
-          <div class="mini"><small>03 PKNU</small><strong>부경대 관련 뉴스</strong></div>
-          <div class="mini"><small>04 WELFARE</small><strong>사회복지 통계 링크</strong></div>
-        </div>
+
+      <aside class="weather-panel" aria-label="부산 날씨">
+        <div class="weather-label">TODAY WEATHER</div>
+        <div class="weather-temp">23°</div>
+        <div class="weather-city">BUSAN</div>
+        <div class="weather-desc">맑음과 구름 사이<br />바람 약간, 산책하기 좋은 날</div>
+        <div class="weather-small">※ 정적 페이지 예시입니다. 실제 날씨 API를 연결하면 자동 갱신형으로 바꿀 수 있습니다.</div>
       </aside>
     </section>
 
-    <section id="weather">
-      <div class="section-title">
-        <h2>WEATHER</h2>
-        <p>Open-Meteo API 기준<br>부산 좌표 자동 조회</p>
+    <section class="section-grid" aria-label="주요 콘텐츠">
+      <article class="card">
+        <div class="card-number">01</div>
+        <h2>부산의 이슈</h2>
+        <p>지역 개발, 청년 정책, 관광, 교통, 생활문화 등 부산에서 주목할 만한 흐름을 짧고 쉽게 정리합니다.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-number">02</div>
+        <h2>부경대 관련 뉴스</h2>
+        <p>부경대학교의 학사 소식, 캠퍼스 이슈, 학생 활동, 지역사회 연계 소식을 뉴스레터 형식으로 모읍니다.</p>
+      </article>
+
+      <article class="card">
+        <div class="card-number">03</div>
+        <h2>사회복지 통계</h2>
+        <p>아동, 청년, 노인, 장애인, 지역복지 관련 통계를 카드형 자료로 정리해 사회복지 관점에서 해석합니다.</p>
+      </article>
+    </section>
+
+    <section class="stats-band" aria-label="사회복지 통계 요약">
+      <div class="stat">
+        <strong>청년</strong>
+        <span>고용, 주거, 정신건강, 사회참여 지표를 중심으로 부산 청년의 삶을 살펴봅니다.</span>
       </div>
-      <div id="weatherBox">
-        <div class="card weather-main">
-          <span class="badge">LIVE BUSAN</span>
-          <h3>부산 현재 날씨</h3>
-          <div class="temp" id="temp">--°</div>
-          <p id="weatherText">날씨 정보를 불러오는 중입니다.</p>
-        </div>
-        <div class="card">
-          <h3>오늘의 체크</h3>
-          <p id="weatherSub">강수확률, 풍속, 습도를 확인해 외출 계획을 세워보세요.</p>
-          <button class="btn" onclick="loadWeather()" style="margin-top:18px">날씨 새로고침</button>
-        </div>
+      <div class="stat">
+        <strong>아동</strong>
+        <span>건강, 돌봄, 교육, 안전 지표를 통해 지역 아동의 복지 욕구를 확인합니다.</span>
+      </div>
+      <div class="stat">
+        <strong>지역</strong>
+        <span>인구구조, 복지시설, 서비스 접근성 자료로 부산의 지역복지 과제를 정리합니다.</span>
       </div>
     </section>
 
-    <section id="busan">
-      <div class="section-title">
-        <h2>BUSAN ISSUE</h2>
-        <p>부산 지역 이슈<br>키워드형 뉴스 보드</p>
-      </div>
-      <div class="split">
-        <div class="news-list" id="busanNews"></div>
-        <div class="card">
-          <h3>추천 확인 키워드</h3>
-          <p>부산 청년, 인구, 복지, 기후, 교통, 관광, 지역경제, 고령화, 1인가구</p>
-          <a class="source" href="https://news.google.com/search?q=%EB%B6%80%EC%82%B0%20%EC%9D%B4%EC%8A%88&hl=ko&gl=KR&ceid=KR%3Ako" target="_blank" rel="noopener">Google News에서 더 보기 →</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="pknu">
-      <div class="section-title">
-        <h2>PKNU NEWS</h2>
-        <p>부경대학교 관련 뉴스<br>학내 소식 링크 모음</p>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <h3>부경대 공식 홈페이지</h3>
-          <p>대학 공지, 보도자료, 학사 정보를 확인할 수 있습니다.</p>
-          <a class="source" href="https://www.pknu.ac.kr" target="_blank" rel="noopener">바로가기 →</a>
-        </article>
-        <article class="card">
-          <h3>부경대 뉴스 검색</h3>
-          <p>언론에 보도된 부경대 관련 최신 뉴스를 모아볼 수 있습니다.</p>
-          <a class="source" href="https://news.google.com/search?q=%EB%B6%80%EA%B2%BD%EB%8C%80&hl=ko&gl=KR&ceid=KR%3Ako" target="_blank" rel="noopener">뉴스 보기 →</a>
-        </article>
-        <article class="card">
-          <h3>PS1 홈페이지</h3>
-          <p>이미지에 적힌 PS1 홈페이지 주소를 버튼으로 연결했습니다.</p>
-          <a class="source" href="https://icms.pknu.ac.kr/ps1/" target="_blank" rel="noopener">PS1 바로가기 →</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="welfare">
-      <div class="section-title">
-        <h2>WELFARE STATS</h2>
-        <p>사회복지 관련 통계<br>공식 통계 사이트 연결</p>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <h3>복지 수급·서비스</h3>
-          <div class="stat-big">KOSIS</div>
-          <p>국가통계포털에서 기초생활보장, 장애인, 아동, 노인 등 복지 통계를 검색할 수 있습니다.</p>
-          <a class="source" href="https://kosis.kr" target="_blank" rel="noopener">KOSIS 열기 →</a>
-        </article>
-        <article class="card">
-          <h3>부산 지역 통계</h3>
-          <div class="stat-big">BUSAN</div>
-          <p>부산시 통계포털에서 인구, 가구, 고령화, 복지시설 현황 등을 확인할 수 있습니다.</p>
-          <a class="source" href="https://www.busan.go.kr/bhstatistics" target="_blank" rel="noopener">부산 통계 보기 →</a>
-        </article>
-        <article class="card">
-          <h3>사회보장 지표</h3>
-          <div class="stat-big">DATA</div>
-          <p>사회보장위원회와 보건복지부 자료를 통해 정책 지표와 복지 흐름을 확인할 수 있습니다.</p>
-          <a class="source" href="https://www.mohw.go.kr" target="_blank" rel="noopener">보건복지부 보기 →</a>
-        </article>
-      </div>
-    </section>
+    <footer>
+      <span>© 2026 BLACKBIN98 BUSAN NEWSLETTER</span>
+      <span>GitHub Pages 독립형 HTML 파일</span>
+    </footer>
   </main>
-
-  <footer class="footer">
-    <div class="wrap">
-      <strong style="color:var(--coral)">PS1 NEWS LETTER</strong><br>
-      Designed for GitHub Pages · Repository: blackbin98/blackbin · File: index.html
-    </div>
-  </footer>
-
-  <script>
-    const busanItems = [
-      {date:'ISSUE 01', title:'부산 청년과 지역 정착', desc:'청년 인구, 일자리, 주거, 문화 접근성을 함께 살펴보는 지역 이슈입니다.'},
-      {date:'ISSUE 02', title:'고령화와 돌봄 수요', desc:'초고령사회 흐름 속에서 지역사회 통합돌봄과 복지 인프라가 중요해지고 있습니다.'},
-      {date:'ISSUE 03', title:'기후·해양도시 부산', desc:'폭염, 집중호우, 해양환경 변화는 도시 안전과 복지 취약계층 지원과 연결됩니다.'}
-    ];
-
-    function renderIssues(){
-      const box = document.getElementById('busanNews');
-      box.innerHTML = busanItems.map(item => `
-        <article class="news-item">
-          <time>${item.date}</time>
-          <div>
-            <h3>${item.title}</h3>
-            <p>${item.desc}</p>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    async function loadWeather(){
-      const temp = document.getElementById('temp');
-      const text = document.getElementById('weatherText');
-      const sub = document.getElementById('weatherSub');
-      try{
-        const url = 'https://api.open-meteo.com/v1/forecast?latitude=35.1796&longitude=129.0756&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&timezone=Asia%2FSeoul';
-        const res = await fetch(url);
-        const data = await res.json();
-        const c = data.current;
-        temp.textContent = Math.round(c.temperature_2m) + '°';
-        text.textContent = `현재 기온 ${c.temperature_2m}°C, 풍속 ${c.wind_speed_10m}km/h, 강수량 ${c.precipitation}mm입니다.`;
-        sub.textContent = `습도는 ${c.relative_humidity_2m}%입니다. 업데이트 기준: ${c.time.replace('T',' ')}`;
-      }catch(e){
-        temp.textContent = '부산';
-        text.textContent = '날씨 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
-        sub.textContent = 'GitHub Pages 배포 후 브라우저 네트워크 상태에 따라 다시 조회됩니다.';
-      }
-    }
-
-    renderIssues();
-    loadWeather();
-  </script>
 </body>
 </html>
