@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PS1 NEWS LETTER</title>
+<style>
+:root{
+--primary:#ff6670;
+--text:#111;
+--sub:#666;
+--line:#ffd4d7;
+--bg:#fffdfc;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+font-family:Pretendard,"Noto Sans KR",sans-serif;
+background:var(--bg);
+height:100vh;
+overflow:hidden;
+color:var(--text);
+}
+.container{display:grid;grid-template-columns:240px 1fr;height:100vh;}
+.sidebar{
+border-right:1px solid var(--line);
+padding:30px 20px;
+}
+.logo-title{
+font-size:18px;
+font-weight:700;
+color:var(--primary);
+margin-bottom:40px;
+}
+.menu{display:flex;flex-direction:column;gap:12px;}
+.menu button{
+border:none;background:none;text-align:left;
+font-size:16px;cursor:pointer;padding:10px 0;
+color:#444;
+}
+.menu button:hover{color:var(--primary);}
+.content{position:relative;}
+.page{
+position:absolute;inset:0;padding:60px;display:none;
+}
+.page.active{display:block;}
+.home{
+display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+text-align:center;height:100%;
+}
+.ps1-logo{width:180px;margin-bottom:25px;}
+.home h1{
+font-size:54px;line-height:1.1;margin-bottom:20px;
+}
+.home h1 span:first-child{color:var(--primary);}
+.weather{margin-top:25px;}
+.weather-label{color:#777;font-size:14px;}
+.weather-temp{
+font-size:64px;color:var(--primary);font-weight:700;
+}
+.profile{
+margin-top:35px;display:flex;align-items:center;gap:15px;
+}
+.profile img{
+width:60px;height:60px;border-radius:50%;
+object-fit:cover;
+}
+.page-title{
+color:var(--primary);
+font-size:42px;
+margin-bottom:25px;
+}
+.card{
+border:1px solid var(--line);
+border-radius:20px;
+padding:25px;
+margin-bottom:15px;
+background:white;
+}
+.card h3{margin-bottom:10px;color:var(--primary);}
+</style>
+</head>
+<body>
+<div class="container">
+<aside class="sidebar">
+<div class="logo-title">PS1 NEWS LETTER</div>
+<div class="menu">
+<button onclick="showPage('home')">오늘의 부산</button>
+<button onclick="showPage('issue')">부산의 이슈</button>
+<button onclick="showPage('pknu')">부경대 관련 뉴스</button>
+<button onclick="showPage('welfare')">사회복지 통계</button>
+</div>
+</aside>
+
+<main class="content">
+<section id="home" class="page active">
+<div class="home">
+<img src="ps1_logo.png" class="ps1-logo" alt="PS1 Logo">
+<h1><span>오늘의 부산을</span><br>한 장의 뉴스레터로</h1>
+
+<div class="weather">
+<div class="weather-label">현재 부산 날씨</div>
+<div id="temp" class="weather-temp">...</div>
+<div id="weatherText">불러오는 중</div>
+</div>
+
+<div class="profile">
+<img src="profile.png" alt="프로필">
+<div>
+<strong>이은빈</strong><br>
+부경대학교 사회복지학과
+</div>
+</div>
+</div>
+</section>
+
+<section id="issue" class="page">
+<h2 class="page-title">부산의 이슈</h2>
+<div class="card">
+<h3>부산 주요 이슈</h3>
+<p>추후 뉴스 API 연동 예정</p>
+</div>
+</section>
+
+<section id="pknu" class="page">
+<h2 class="page-title">부경대 관련 뉴스</h2>
+<div class="card">
+<h3>부경대학교 소식</h3>
+<p>추후 RSS 또는 뉴스 연동 예정</p>
+</div>
+</section>
+
+<section id="welfare" class="page">
+<h2 class="page-title">사회복지 통계</h2>
+<div class="card">
+<h3>복지 통계</h3>
+<p>KOSIS 데이터 연동 예정</p>
+</div>
+</section>
+</main>
+</div>
+
+<script>
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+async function loadWeather(){
+try{
+const res=await fetch("https://api.open-meteo.com/v1/forecast?latitude=35.1796&longitude=129.0756&current=temperature_2m,weather_code&timezone=Asia%2FSeoul");
+const data=await res.json();
+document.getElementById("temp").textContent=Math.round(data.current.temperature_2m)+"°";
+document.getElementById("weatherText").textContent="부산 현재 날씨";
+}catch(e){
+document.getElementById("temp").textContent="--°";
+}
+}
+loadWeather();
+</script>
+</body>
+</html>
