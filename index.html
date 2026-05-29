@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PS1 News Letter | Busan</title>
+  <style>
+    :root{--coral:#ff5f68;--coral-soft:#ffa39a;--ink:#111;--muted:#8b8b8b;--line:#ff747b;--paper:#fffdfb;--panel:#fff;--shadow:0 22px 60px rgba(255,95,104,.18)}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;background:var(--paper);color:var(--ink)}
+    .app{width:100vw;height:100vh;padding:18px 22px 22px;display:flex;flex-direction:column;gap:14px}
+    .top{flex:0 0 auto;border-bottom:2px solid var(--line);padding-bottom:7px}
+    .masthead{font-family:Georgia,"Times New Roman",serif;font-size:clamp(44px,7vw,92px);line-height:.85;letter-spacing:2px;color:var(--coral);font-weight:800;white-space:nowrap}
+    .info-row{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;font-size:11px;color:#9d9d9d;border-top:1px solid var(--line);margin-top:7px;padding-top:4px}
+    .info-row span:nth-child(2){text-align:center}.info-row span:nth-child(3){text-align:right}
+    .window{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:220px 1fr;border:2px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);background:var(--panel)}
+    .sidebar{border-right:2px solid var(--line);background:linear-gradient(180deg,#fff 0%,#fff6f4 100%);display:flex;flex-direction:column;padding:16px;gap:12px}
+    .window-controls{display:flex;gap:8px;margin-bottom:10px}.dot{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--coral)}.dot.fill{background:var(--coral)}
+    .menu{display:flex;flex-direction:column;gap:10px}.tab{border:1.5px solid var(--coral);background:#fff;color:var(--coral);border-radius:999px;padding:12px 14px;text-align:left;font-size:15px;font-weight:800;cursor:pointer;transition:.2s ease}
+    .tab:hover,.tab.active{background:var(--coral);color:#fff;transform:translateX(3px)}
+    .side-note{margin-top:auto;font-size:12px;line-height:1.55;color:#777}
+    .screen{position:relative;overflow:hidden;background:radial-gradient(circle at 78% 18%,rgba(255,163,154,.24),transparent 30%),linear-gradient(135deg,#fff 0%,#fff 70%,#fff5f3 100%)}
+    .page{position:absolute;inset:0;padding:26px 30px;opacity:0;pointer-events:none;transform:translateX(30px);transition:.32s ease;display:grid;grid-template-rows:auto 1fr;gap:18px}
+    .page.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;height:100%;align-items:center}.hero-copy{z-index:2}
+    .eyebrow{color:var(--coral);font-weight:900;letter-spacing:.12em;font-size:14px;margin-bottom:18px}
+    .hero-title{margin:0;font-size:clamp(38px,5.4vw,74px);line-height:1.08;letter-spacing:-2px;font-weight:900}.hero-title .coral{color:var(--coral)}.hero-title .black{color:var(--ink)}
+    .hero-desc{margin-top:18px;max-width:480px;color:#555;font-size:16px;line-height:1.75;word-break:keep-all}
+    .weather-area{position:relative;height:100%;min-height:420px;display:flex;align-items:center;justify-content:center}
+    .ps1-logo{position:absolute;width:min(44vw,470px);height:auto;opacity:.95;right:8%;top:50%;transform:translateY(-50%);z-index:1;filter:drop-shadow(0 20px 30px rgba(255,95,104,.12))}
+    .weather-card{position:absolute;z-index:3;right:6%;bottom:7%;min-width:245px;background:rgba(255,255,255,.78);backdrop-filter:blur(8px);border:2px solid var(--coral);border-radius:26px;padding:20px;text-align:right}
+    .weather-label{font-weight:900;color:var(--coral);font-size:14px;margin-bottom:4px}.weather-temp{font-size:58px;line-height:1;font-weight:900;color:var(--coral);letter-spacing:-2px}
+    .weather-meta{margin-top:8px;color:#222;font-size:14px;line-height:1.5;font-weight:700}.weather-small{color:#777;font-size:12px;margin-top:8px}
+    .page-title{display:flex;justify-content:space-between;align-items:end;border-bottom:2px solid var(--line);padding-bottom:12px}.page-title h2{margin:0;font-size:clamp(28px,3.2vw,46px);color:var(--coral);letter-spacing:-1px}.page-title span{color:#999;font-size:12px;font-weight:800;letter-spacing:.12em}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-content:start}.card{border:1.8px solid var(--line);border-radius:22px;padding:18px;background:#fff;min-height:210px}.card b{display:block;color:var(--coral);font-size:18px;margin-bottom:12px}.card p{margin:0;color:#555;font-size:14px;line-height:1.65;word-break:keep-all}
+    .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.stat{border:1.8px solid var(--line);border-radius:22px;padding:20px;background:#fff}.stat strong{display:block;color:var(--coral);font-size:38px;line-height:1;margin-bottom:10px}.stat p{margin:0;color:#555;line-height:1.6;word-break:keep-all}
+    @media (max-width:860px){.app{padding:10px}.masthead{font-size:40px}.info-row{display:none}.window{grid-template-columns:1fr;grid-template-rows:auto 1fr}.sidebar{border-right:0;border-bottom:2px solid var(--line);padding:10px}.window-controls,.side-note{display:none}.menu{flex-direction:row;overflow:auto}.tab{white-space:nowrap;font-size:13px;padding:10px 12px}.page{padding:18px}.hero{grid-template-columns:1fr}.weather-area{min-height:330px}.ps1-logo{width:78vw;right:auto}.weather-card{right:12px;bottom:12px}.cards,.stat-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="masthead">PS1 NEWS LETTER</div>
+      <div class="info-row"><span>주소_부산광역시 남구 용소로 45, 인문사회경영관(C25) 638호</span><span>TEL. 051.629.5450</span><span>홈페이지. HTTPS://ICMS.PKNU.AC.KR/PS1/</span></div>
+    </header>
+    <section class="window">
+      <aside class="sidebar">
+        <div class="window-controls"><span class="dot fill"></span><span class="dot"></span><span class="dot"></span></div>
+        <nav class="menu" aria-label="뉴스레터 메뉴">
+          <button class="tab active" data-page="home">오늘의 부산</button>
+          <button class="tab" data-page="issue">부산의 이슈</button>
+          <button class="tab" data-page="pknu">부경대 관련 뉴스</button>
+          <button class="tab" data-page="welfare">사회복지 통계</button>
+        </nav>
+        <div class="side-note">클릭하면 화면이 전환됩니다.<br>GitHub Pages용 단일 HTML 파일입니다.</div>
+      </aside>
+      <section class="screen">
+        <article class="page active" id="home">
+          <div class="hero">
+            <div class="hero-copy">
+              <div class="eyebrow">BUSAN TODAY · PS1</div>
+              <h1 class="hero-title"><span class="coral">오늘의 부산을</span><br><span class="black">한 장의 뉴스레터로</span></h1>
+              <p class="hero-desc">부산의 날씨, 지역 이슈, 부경대 소식, 사회복지 통계를 한 화면에서 확인하는 뉴스레터형 홈페이지입니다.</p>
+            </div>
+            <div class="weather-area">
+              <svg class="ps1-logo" viewBox="0 0 520 620" role="img" aria-label="PS1 로고">
+                <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0%" stop-color="#ff5f68"/><stop offset="68%" stop-color="#ff5f68"/><stop offset="100%" stop-color="#ffa39a"/></linearGradient></defs>
+                <g fill="none" stroke="url(#g1)" stroke-width="58" stroke-linejoin="miter" stroke-linecap="butt">
+                  <path d="M72 470 L72 205 L230 82 L230 295 L72 420"/><path d="M72 330 L185 242"/><path d="M250 420 L420 300 L420 555 L250 450"/><path d="M250 300 L420 185"/><path d="M420 70 L420 555"/>
+                </g>
+              </svg>
+              <div class="weather-card">
+                <div class="weather-label">BUSAN WEATHER</div><div class="weather-temp" id="temp">--°</div><div class="weather-meta" id="weatherText">현재 날씨 불러오는 중</div><div class="weather-small" id="weatherTime">Open-Meteo 기준</div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="page" id="issue">
+          <div class="page-title"><h2>부산의 이슈</h2><span>BUSAN ISSUE</span></div>
+          <div class="cards"><div class="card"><b>지역 경제</b><p>청년 일자리, 관광, 항만·물류, 지역 상권 흐름을 중심으로 부산의 오늘을 정리합니다.</p></div><div class="card"><b>도시 변화</b><p>재개발, 교통, 생활 인프라, 지역 균형발전처럼 시민 생활과 가까운 변화를 다룹니다.</p></div><div class="card"><b>생활 이슈</b><p>문화 행사, 안전, 환경, 복지 소식 등 일상에서 바로 체감할 수 있는 정보를 모읍니다.</p></div></div>
+        </article>
+        <article class="page" id="pknu">
+          <div class="page-title"><h2>부경대 관련 뉴스</h2><span>PKNU NEWS</span></div>
+          <div class="cards"><div class="card"><b>캠퍼스 소식</b><p>부경대학교의 주요 공지, 학사 일정, 학생 참여 프로그램을 보기 쉽게 정리합니다.</p></div><div class="card"><b>학과·학생 활동</b><p>학과 행사, 동아리, 비교과 활동, 학생 성과 등 캠퍼스 안의 움직임을 담습니다.</p></div><div class="card"><b>지역 연계</b><p>부경대와 부산 지역사회가 연결되는 산학협력, 봉사, 연구 소식을 소개합니다.</p></div></div>
+        </article>
+        <article class="page" id="welfare">
+          <div class="page-title"><h2>사회복지 통계</h2><span>SOCIAL WELFARE DATA</span></div>
+          <div class="stat-grid"><div class="stat"><strong>01</strong><p>부산의 고령화, 1인 가구, 청년, 아동, 장애인 관련 통계를 카드 형태로 정리할 수 있습니다.</p></div><div class="stat"><strong>02</strong><p>복지 통계는 추후 KOSIS, 부산광역시 통계, 보건복지부 자료를 연결해 업데이트하면 좋습니다.</p></div><div class="stat"><strong>03</strong><p>숫자만 보여주기보다 “이 통계가 지역 문제와 어떻게 연결되는가”를 함께 설명하는 구조입니다.</p></div><div class="stat"><strong>04</strong><p>발표나 과제에 활용하기 쉽게 핵심 수치, 해석, 출처 영역을 나눠 확장할 수 있습니다.</p></div></div>
+        </article>
+      </section>
+    </section>
+  </main>
+  <script>
+    const tabs=document.querySelectorAll(".tab"),pages=document.querySelectorAll(".page");
+    tabs.forEach(tab=>{tab.addEventListener("click",()=>{const target=tab.dataset.page;tabs.forEach(t=>t.classList.remove("active"));pages.forEach(p=>p.classList.remove("active"));tab.classList.add("active");document.getElementById(target).classList.add("active")})});
+    const weatherMap={0:"맑음",1:"대체로 맑음",2:"부분적으로 흐림",3:"흐림",45:"안개",48:"서리 안개",51:"약한 이슬비",53:"이슬비",55:"강한 이슬비",61:"약한 비",63:"비",65:"강한 비",71:"약한 눈",73:"눈",75:"강한 눈",80:"약한 소나기",81:"소나기",82:"강한 소나기",95:"뇌우"};
+    async function loadBusanWeather(){const temp=document.getElementById("temp"),weatherText=document.getElementById("weatherText"),weatherTime=document.getElementById("weatherTime");try{const url="https://api.open-meteo.com/v1/forecast?latitude=35.1796&longitude=129.0756&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Asia%2FSeoul";const res=await fetch(url);const data=await res.json();const current=data.current;temp.textContent=Math.round(current.temperature_2m)+"°";weatherText.textContent=(weatherMap[current.weather_code]||"날씨 정보")+" · 습도 "+current.relative_humidity_2m+"% · 바람 "+current.wind_speed_10m+"km/h";const date=new Date(current.time);weatherTime.textContent="업데이트 "+date.toLocaleString("ko-KR",{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"})}catch(error){temp.textContent="--°";weatherText.textContent="날씨 정보를 불러오지 못했습니다";weatherTime.textContent="잠시 후 다시 확인해 주세요"}}
+    loadBusanWeather();
+  </script>
+</body>
+</html>
